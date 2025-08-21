@@ -2,4 +2,32 @@ form {
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
+    align-items: center;
+}
+
+img {
+    width: 80%;
+    padding-bottom: 1.5rem;
+    cursor: pointer;
+
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+button {
+   width: 95%; 
+}
+
+@media (min-width: 768px) {
+    img {
+        width: 20%;
+    }
+    mat-form-field  {
+        width: 35%;
+    }
+    button {
+        width: 32%; 
+    }
 }

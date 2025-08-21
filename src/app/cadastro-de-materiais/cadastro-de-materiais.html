@@ -1,5 +1,14 @@
 
 <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
+
+    <img [src]="imageUrl" class="imagem-responsiva" (click)="fileInput.click()">
+
+    <input hidden 
+           type="file" 
+           #fileInput 
+           accept="image/png, image/jpeg" 
+           (change)="onFileSelected($event)">
+
     <mat-form-field>
         <mat-label>Nome</mat-label>
         <input matInput
@@ -44,7 +53,7 @@
             placeholder="0" inputmode="numeric">
     </mat-form-field>
 
-    <button matButton="filled" type="submit" [disabled]="!form.valid">
+    <button matButton="filled" type="submit" [disabled]="!form.valid || !selectedFile">
         Enviar
     </button>
 </form>
