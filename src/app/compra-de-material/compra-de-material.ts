@@ -12,11 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-export interface ItemDoPedido {
-  material: Material;
-  quantidade: number;
-}
+import { ItemDoPedido, PedidoService } from '../service/pedido-service';
 
 @Component({
   selector: 'app-compra-de-material',
@@ -55,6 +51,7 @@ export class CompraDeMaterial {
     private materialService: MaterialService,
     private sanitizer: DomSanitizer,
     private snakbar: MatSnackBar,
+    private pedidoService: PedidoService
   ) {}
 
   ngOnInit(): void {
@@ -115,7 +112,8 @@ export class CompraDeMaterial {
       
       const itemDoPedido: ItemDoPedido = {
         material: this.materialSelecionado,
-        quantidade: this.quantidade
+        quantidade: this.quantidade,
+        valorTotal: this.quantidade*this.materialSelecionado.preco
       };
       
       this.itensDoPedido.push(itemDoPedido);
@@ -140,13 +138,17 @@ export class CompraDeMaterial {
   }
 
   finalizarPedido() {
-    this.itensDoPedido = []
-    this.form.resetForm();
-    this.quantidade = 1;
-    this.materiais = [];
-    this.materialSelecionado = null;
-    this.limparRecursosDaImagem();
-    this.openSnackBar('Pedido finalizado com sucesso!');
+    this.pedidoService.postPedidoDeCompra(this.itensDoPedido).subscribe({
+      next: () => {
+        this.itensDoPedido = []
+        this.form.resetForm();
+        this.quantidade = 1;
+        this.materiais = [];
+        this.materialSelecionado = null;
+        this.limparRecursosDaImagem();
+        this.openSnackBar('Pedido finalizado com sucesso!');
+      }
+    })
   }
 
   openSnackBar(mensagem: string) {
