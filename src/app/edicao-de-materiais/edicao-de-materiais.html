@@ -1,5 +1,5 @@
 <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
-
+    
     <mat-form-field>
         <mat-label>Categoria</mat-label>
         <mat-select name="grupo" ngModel (selectionChange)="onGrupoSelecionado($event)">
@@ -23,9 +23,45 @@
     </mat-form-field>
 
     @if (imagemDoMaterialSelecionado) {
+
         <img [src]="imagemDoMaterialSelecionado">
-        <button matButton (click)="fileInput.click()">Alterar imagem</button>
+        <button id="button-alterar-imagem" matButton (click)="fileInput.click()">Alterar imagem</button>
         <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept="image/*">
+
+        <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput 
+                name="nome" 
+                ngModel
+                type="text"
+                [(ngModel)]="nome">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Preço</mat-label>
+            <input matInput 
+                name="preco" 
+                ngModel
+                type="number"
+                [(ngModel)]="preco"
+                step="0.01"
+                inputmode="decimal">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Quantidade em estoque</mat-label>
+            <input matInput
+                type="number" 
+                name="quantidadeEmEstoque"
+                [(ngModel)]="quantidadeEmEstoque"
+                placeholder="0" inputmode="numeric">
+        </mat-form-field>
+
+        <button matButton="filled" type="submit">
+            Enviar
+        </button>
     }
+
+    
 </form>
 

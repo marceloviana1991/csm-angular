@@ -11,6 +11,12 @@ export interface MaterialCadastro {
   quantidadeEmEstoque: number;
 }
 
+export interface MaterialEdicao {
+  nome: string;
+  preco: number;
+  quantidadeEmEstoque: number;
+}
+
 export interface Material {
   id: number;
   nome: string;
@@ -35,6 +41,10 @@ export class MaterialService {
     }
     formData.append('requestDto', new Blob([JSON.stringify(materialCadastro)], { type: "application/json" }));
     return this.http.post<void>(this.endpointUrl, formData)
+  }
+
+  public putMaterial(id: number, materialEdicao: MaterialEdicao): Observable<void> {
+    return this.http.put<void>(`${this.endpointUrl}/${id}`, materialEdicao)
   }
 
   public getMateriaisByGrupo(grupoId: number): Observable<Material[]> {

@@ -1,1 +1,19 @@
+<nav mat-tab-nav-bar>
+    <a mat-tab-link 
+        routerLink="/cadastrar"
+        routerLinkActive
+        #rla1="routerLinkActive"
+        [active]="rla1.isActive">
+        Castrar
+    </a>
+    <a mat-tab-link 
+        routerLink="/editar"
+        routerLinkActive
+        #rla2="routerLinkActive"
+        [active]="rla2.isActive">
+        Editar
+    </a>
+
+</nav>
+
 <router-outlet></router-outlet>

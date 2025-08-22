@@ -19,6 +19,11 @@ button {
    width: 95%; 
 }
 
+#button-alterar-imagem {
+    margin-bottom: 1rem;
+    width: auto;
+}
+
 @media (min-width: 768px) {
     img {
         width: 20%;

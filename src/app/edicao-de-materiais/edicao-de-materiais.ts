@@ -4,7 +4,7 @@ import { Grupo, GrupoService } from '../service/grupo-service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { Material, MaterialService } from '../service/material-service';
+import { Material, MaterialEdicao, MaterialService } from '../service/material-service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -24,6 +24,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EdicaoDeMateriais implements OnInit {
 
   @ViewChild('form') form!: NgForm;
+  nome: string = ''
+  preco: number | null = null 
+  quantidadeEmEstoque: number | null = null 
 
   grupos: Grupo[] = []
   materiais: Material[] = []
@@ -60,7 +63,10 @@ export class EdicaoDeMateriais implements OnInit {
       const objectURL = URL.createObjectURL(imageBlob);
       this.imagemDoMaterialSelecionado = this.sanitizer.bypassSecurityTrustUrl(objectURL);
     })
-    this.materialSelecionado = event.value
+    this.materialSelecionado = event.value;
+    this.nome = this.materialSelecionado!.nome;
+    this.preco = this.materialSelecionado!.preco;
+    this.quantidadeEmEstoque = this.materialSelecionado!.quantidadeEmEstoque;
   }
 
   private limparRecursosDaImagem(): void {
@@ -92,7 +98,24 @@ export class EdicaoDeMateriais implements OnInit {
   }
 
   onSubmit(ngForm: NgForm) {
-
+    const materialEdicao: MaterialEdicao = {
+      nome: this.nome,
+      preco: this.preco!,
+      quantidadeEmEstoque: this.quantidadeEmEstoque!
+    }
+    const id = this.materialSelecionado?.id
+    if (id) {
+      this.materialService.putMaterial(id, materialEdicao).subscribe({
+        next: () => {
+            this.form.resetForm();
+            this.materiais = [];
+            this.materialSelecionado = null;
+            this.arquivoSelecionado = null;
+            this.limparRecursosDaImagem();
+            this.openSnackBar();
+          }
+      })
+    }
   }
 
   openSnackBar() {
