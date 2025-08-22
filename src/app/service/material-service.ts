@@ -11,6 +11,14 @@ export interface MaterialCadastro {
   quantidadeEmEstoque: number;
 }
 
+export interface Material {
+  id: number;
+  nome: string;
+  grupoId: number;
+  preco: number;
+  quantidadeEmEstoque: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,5 +37,18 @@ export class MaterialService {
     return this.http.post<void>(this.endpointUrl, formData)
   }
 
+  public getMateriaisByGrupo(grupoId: number): Observable<Material[]> {
+    return this.http.get<Material[]>(`${this.endpointUrl}/grupos/${grupoId}`)
+  }
+
+  public getImagemByMaterial(id: number): Observable<Blob> {
+    return this.http.get(`${this.endpointUrl}/imagem/${id}`, { responseType: 'blob' })
+  }
+
+  public putImagemByMaterial(id: number, imagem: File): Observable<void> {
+    const formData = new FormData();
+    formData.append('imagem', imagem, imagem.name);
+    return this.http.put<void>(`${this.endpointUrl}/imagem/${id}`, formData);
+  }
   
 }

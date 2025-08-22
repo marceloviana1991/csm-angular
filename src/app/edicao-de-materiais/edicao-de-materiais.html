@@ -1,0 +1,31 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
+
+    <mat-form-field>
+        <mat-label>Categoria</mat-label>
+        <mat-select name="grupo" ngModel (selectionChange)="onGrupoSelecionado($event)">
+            @for (grupo of grupos; track grupo.id) {
+                <mat-option [value]="grupo.id">
+                    {{ grupo.nome }}
+                </mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Material</mat-label>
+        <mat-select name="material" ngModel (selectionChange)="onMaterialSelecionado($event)">
+            @for (material of materiais; track material.id) {
+                <mat-option [value]="material">
+                    {{ material.nome }}
+                </mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    @if (imagemDoMaterialSelecionado) {
+        <img [src]="imagemDoMaterialSelecionado">
+        <button matButton (click)="fileInput.click()">Alterar imagem</button>
+        <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept="image/*">
+    }
+</form>
+

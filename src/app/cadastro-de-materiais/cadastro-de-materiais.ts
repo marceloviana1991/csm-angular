@@ -22,7 +22,7 @@ import { MaterialCadastro, MaterialService } from '../service/material-service';
   templateUrl: './cadastro-de-materiais.html',
   styleUrl: './cadastro-de-materiais.css'
 })
-export class CadastroDeMateriais implements OnInit  {
+export class CadastroDeMateriais implements OnInit {
 
   nome: string = ''
   grupoSelecionado: Grupo | null = null;
