@@ -9,6 +9,14 @@ import { Grupo, GrupoService } from '../service/grupo-service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+export interface ItemDoPedido {
+  material: Material;
+  quantidade: number;
+}
 
 @Component({
   selector: 'app-compra-de-material',
@@ -19,7 +27,9 @@ import { MatCardModule } from '@angular/material/card';
     MatSelectModule,
     MatButtonModule,
     CommonModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    MatIconModule
   ],
   templateUrl: './compra-de-material.html',
   styleUrl: './compra-de-material.css'
@@ -30,6 +40,7 @@ export class CompraDeMaterial {
 
   grupos: Grupo[] = []
   materiais: Material[] = []
+  itensDoPedido: ItemDoPedido[] = []
 
   materialSelecionado: Material | null = null;
   imagemDoMaterialSelecionado: SafeUrl | null = null;
@@ -37,10 +48,13 @@ export class CompraDeMaterial {
 
   quantidade: number = 1;
 
+  colunasDaTabelaDeItens: string[] = ['Nome', 'Quantidade', 'Valor total', 'Remover']
+
   constructor(
     private grupoService: GrupoService,
     private materialService: MaterialService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private snakbar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -76,9 +90,48 @@ export class CompraDeMaterial {
   }
 
   onSubmit(ngForm: NgForm) {
-    
-    // Implementar
 
+    if (!this.materialSelecionado) {
+        this.openSnackBar('Selecione um material válido.');
+        return;
+    }
+
+    const itemDoPedidoExistente = this.itensDoPedido.find(item => item.material.id === this.materialSelecionado!.id);
+    
+    if (itemDoPedidoExistente) {
+      itemDoPedidoExistente.quantidade += this.quantidade;
+
+      if (this.materialSelecionado.quantidadeEmEstoque < itemDoPedidoExistente.quantidade) {
+        this.openSnackBar('Quantidade indiponível!');
+        itemDoPedidoExistente.quantidade -= this.quantidade;
+        return;
+      }
+      
+    } else {
+      if (this.materialSelecionado.quantidadeEmEstoque < this.quantidade) {
+        this.openSnackBar('Quantidade indiponível!');
+        return;
+      }
+      
+      const itemDoPedido: ItemDoPedido = {
+        material: this.materialSelecionado,
+        quantidade: this.quantidade
+      };
+      
+      this.itensDoPedido.push(itemDoPedido);
+    }
+
+    this.itensDoPedido = [...this.itensDoPedido];
+
+    this.form.resetForm();
+    this.quantidade = 1;
+    this.materiais = [];
+    this.materialSelecionado = null;
+    this.limparRecursosDaImagem();
+}
+
+  removerItem(itemParaRemover: ItemDoPedido) {
+    this.itensDoPedido = this.itensDoPedido.filter(item => item !== itemParaRemover);
     this.form.resetForm();
     this.quantidade = 1;
     this.materiais = [];
@@ -86,4 +139,19 @@ export class CompraDeMaterial {
     this.limparRecursosDaImagem();
   }
 
+  finalizarPedido() {
+    this.itensDoPedido = []
+    this.form.resetForm();
+    this.quantidade = 1;
+    this.materiais = [];
+    this.materialSelecionado = null;
+    this.limparRecursosDaImagem();
+    this.openSnackBar('Pedido finalizado com sucesso!');
+  }
+
+  openSnackBar(mensagem: string) {
+    this.snakbar.open(mensagem, 'Fechar', {
+      duration: 3000
+    });
+  }
 }

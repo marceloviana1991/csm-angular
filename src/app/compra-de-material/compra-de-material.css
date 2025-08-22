@@ -41,6 +41,11 @@ mat-card-content {
     padding: 1rem;
 }
 
+#tabela {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
 @media (min-width: 768px) {
     mat-card {
         width: 20%;
@@ -50,6 +55,11 @@ mat-card-content {
     }
     button {
         width: 32%; 
+    }
+    #tabela {
+        width: 35%;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
     }
 }
 
