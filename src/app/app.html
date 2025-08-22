@@ -1,19 +1,43 @@
-<nav mat-tab-nav-bar>
-    <a mat-tab-link 
-        routerLink="/cadastrar"
-        routerLinkActive
-        #rla1="routerLinkActive"
-        [active]="rla1.isActive">
-        Castrar
-    </a>
-    <a mat-tab-link 
-        routerLink="/editar"
-        routerLinkActive
-        #rla2="routerLinkActive"
-        [active]="rla2.isActive">
-        Editar
-    </a>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 
+<nav mat-tab-nav-bar [tabPanel]="tabPanel" mat-tab-nav-bar class="desktop-only">
+  <a mat-tab-link 
+    routerLink="/cadastrar"
+    routerLinkActive
+    #rla1="routerLinkActive"
+    [active]="rla1.isActive">
+    Cadastrar
+  </a>
+  <a mat-tab-link 
+    routerLink="/editar"
+    routerLinkActive
+    #rla2="routerLinkActive"
+    [active]="rla2.isActive">
+    Editar
+  </a>
+  <a mat-tab-link 
+    routerLink="/comprar"
+    routerLinkActive
+    #rla3="routerLinkActive"
+    [active]="rla3.isActive">
+    Comprar
+  </a>
 </nav>
 
+<div class="mobile-only">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <a mat-menu-item routerLink="/cadastrar">
+      <span>Cadastrar</span>
+    </a>
+    <a mat-menu-item routerLink="/editar">
+      <span>Editar</span>
+    </a>
+    <a mat-menu-item routerLink="/comprar">
+      <span>Comprar</span>
+    </a>
+  </mat-menu>
+</div>
 <router-outlet></router-outlet>

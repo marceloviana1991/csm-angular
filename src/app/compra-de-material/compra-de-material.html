@@ -1,0 +1,51 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
+
+    <h1>Comprar</h1>
+
+    <mat-form-field>
+        <mat-label>Categoria</mat-label>
+        <mat-select name="grupo" ngModel (selectionChange)="onGrupoSelecionado($event)">
+            @for (grupo of grupos; track grupo.id) {
+                <mat-option [value]="grupo.id">
+                    {{ grupo.nome }}
+                </mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Material</mat-label>
+        <mat-select name="material" ngModel (selectionChange)="onMaterialSelecionado($event)">
+            @for (material of materiais; track material.id) {
+                <mat-option [value]="material">
+                    {{ material.nome }}
+                </mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    @if (imagemDoMaterialSelecionado) {
+        <mat-card>
+            <mat-card-header>
+                <h2>{{ materialSelecionado?.nome }}</h2>
+            </mat-card-header>
+                <img mat-card-image [src]="imagemDoMaterialSelecionado">
+            <mat-card-content>
+                <h3>{{ materialSelecionado?.preco | currency:'BRL' }}</h3>
+                <p>Disponível em estoque: {{ materialSelecionado?.quantidadeEmEstoque }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <mat-form-field>
+                <mat-label>Quantidade</mat-label>
+                <input matInput
+                    type="number" 
+                    name="quantidade"
+                    [(ngModel)]="quantidade"
+                    placeholder="0" inputmode="numeric">
+                </mat-form-field>
+                <button matButton>Adicionar</button>
+            </mat-card-actions>
+        </mat-card>  
+    }
+
+</form>
