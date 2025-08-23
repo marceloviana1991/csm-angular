@@ -1,0 +1,33 @@
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    align-items: center;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+button {
+   width: 95%; 
+}
+
+div {
+    margin-top: 2rem;
+    width: 95%;
+}
+
+@media (min-width: 768px) {
+    mat-form-field  {
+        width: 35%;
+    }
+
+    button {
+        width: 32%; 
+    }
+
+    div {
+    width: 35%;
+}
+}

@@ -3,11 +3,13 @@ import { CadastroDeMateriais } from './cadastro-de-materiais/cadastro-de-materia
 import { EdicaoDeMateriais } from './edicao-de-materiais/edicao-de-materiais';
 import { CompraDeMaterial } from './compra-de-material/compra-de-material';
 import { VendaDeMaterial } from './venda-de-material/venda-de-material';
+import { ListagemDePedidos } from './listagem-de-pedidos/listagem-de-pedidos';
 
 export const routes: Routes = [
     {path:'', redirectTo:'/vender', pathMatch:'full'},
     {path:'cadastrar', component:CadastroDeMateriais},
     {path:'editar', component:EdicaoDeMateriais},
     {path:'comprar', component:CompraDeMaterial},
-    {path:'vender', component:VendaDeMaterial}
+    {path:'vender', component:VendaDeMaterial},
+    {path:'listar', component:ListagemDePedidos}
 ];
