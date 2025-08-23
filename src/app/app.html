@@ -6,21 +6,28 @@
     routerLinkActive
     #rla1="routerLinkActive"
     [active]="rla1.isActive">
-    Cadastrar
+    Cadastro
   </a>
   <a mat-tab-link 
     routerLink="/editar"
     routerLinkActive
     #rla2="routerLinkActive"
     [active]="rla2.isActive">
-    Editar
+    Edição
   </a>
   <a mat-tab-link 
     routerLink="/comprar"
     routerLinkActive
     #rla3="routerLinkActive"
     [active]="rla3.isActive">
-    Comprar
+    Compra
+  </a>
+  <a mat-tab-link 
+    routerLink="/vender"
+    routerLinkActive
+    #rla4="routerLinkActive"
+    [active]="rla4.isActive">
+    Venda
   </a>
 </nav>
 
@@ -30,13 +37,16 @@
   </button>
   <mat-menu #menu="matMenu">
     <a mat-menu-item routerLink="/cadastrar">
-      <span>Cadastrar</span>
+      <span>Cadastro</span>
     </a>
     <a mat-menu-item routerLink="/editar">
       <span>Editar</span>
     </a>
     <a mat-menu-item routerLink="/comprar">
-      <span>Comprar</span>
+      <span>Compra</span>
+    </a>
+    <a mat-menu-item routerLink="/vender">
+      <span>Venda</span>
     </a>
   </mat-menu>
 </div>

@@ -11,7 +11,6 @@ export interface ItemDoPedido {
 }
 
 export interface Pedido {
-  tipo: string
   itens: ItemDoPedidoRequest[]
 }
 
@@ -40,10 +39,25 @@ export class PedidoService {
       }
     })
     const pedido: Pedido = {
-      tipo: 'COMPRA',
       itens: itens
     }
     console.log(pedido)
-    return this.http.post<void>(this.endpointUrl, pedido)
+    return this.http.post<void>(`${this.endpointUrl}/comprar`, pedido)
+  }
+
+  public postPedidoDeVenda(itensDoPedido: ItemDoPedido[]): Observable<void> {
+    const itens: ItemDoPedidoRequest[] = itensDoPedido.map(item => {
+      const id = item.material.id
+      return {
+        materialId: id,
+        quantidade: item.quantidade,
+        valorTotal: item.valorTotal
+      }
+    })
+    const pedido: Pedido = {
+      itens: itens
+    }
+    console.log(pedido)
+    return this.http.post<void>(`${this.endpointUrl}/vender`, pedido)
   }
 }
