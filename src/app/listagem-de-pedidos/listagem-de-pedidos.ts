@@ -29,18 +29,28 @@ export class ListagemDePedidos {
 
   pedidos: PedidoResponse[] = [];
 
-  displayedColumns: string[] = ['id', 'nome', 'quantidade', 'valorTotal'];
+  displayedColumns: string[] = ['nome', 'quantidade', 'valorTotal'];
 
   constructor(
     private pedidoService: PedidoService
   ) {}
 
-  onSubmit(ngForm: NgForm) {
+  onSubmit() {
     if (this.mes && this.ano) {
       this.pedidoService.getPedidosPorMes(this.mes, this.ano).subscribe(pedidos => {
         this.pedidos = pedidos
+        console.log(pedidos)
       })
     }
+  }
+
+  confirmarPagamento(id: number) {
+    this.pedidoService.getPedidoConfirmarPagamento(id).subscribe(() => {
+      this.pedidos = [];
+      this.ano = null;
+      this.mes = null;
+    })
+
   }
 }
 

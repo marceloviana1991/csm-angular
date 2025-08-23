@@ -31,7 +31,8 @@ export interface PedidoResponse {
   id: number;
   data: string;
   tipo: string;
-  itens: ItemDoPedidoResponse[]
+  confirmado: boolean;
+  itens: ItemDoPedidoResponse[];
 }
 
 @Injectable({
@@ -80,5 +81,9 @@ export class PedidoService {
       .set('mes', mes.toString())
       .set('ano', ano.toString());
     return this.http.get<PedidoResponse[]>(this.endpointUrl, { params });
+  }
+
+  public getPedidoConfirmarPagamento(id: number): Observable<void> {
+    return this.http.get<void>(`${this.endpointUrl}/confirmar/${id}`)
   }
 }

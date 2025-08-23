@@ -105,10 +105,6 @@ export class CompraDeMaterial {
       }
       
     } else {
-      if (this.materialSelecionado.quantidadeEmEstoque < this.quantidade) {
-        this.openSnackBar('Quantidade indiponível!');
-        return;
-      }
       
       const itemDoPedido: ItemDoPedido = {
         material: this.materialSelecionado,

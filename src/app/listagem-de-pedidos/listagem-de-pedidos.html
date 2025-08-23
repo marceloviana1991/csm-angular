@@ -1,4 +1,4 @@
-<form  #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
+<form  #form="ngForm" (ngSubmit)="onSubmit()" novalidate>
 
     <h1>Listar Pedidos</h1>
 
@@ -34,21 +34,18 @@
     <button matButton="filled" type="submit" [disabled]="!form.valid">
         Listar
     </button>
+</form>
 
+<form #form="ngForm">
     @for (pedido of pedidos; track pedido.id) {
         <div>
 
-            <h2>Código do pedido {{ pedido.id }} - {{ pedido.tipo }}</h2>
+            <h2>N°{{ pedido.id }} - {{ pedido.tipo }}</h2>
 
             <table mat-table [dataSource]="pedido.itens" class="mat-elevation-z8">
-                
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef> ID </th>
-                    <td mat-cell *matCellDef="let item"> {{item.id}} </td>
-                </ng-container>
 
                 <ng-container matColumnDef="nome">
-                    <th mat-header-cell *matHeaderCellDef> Nome </th>
+                    <th mat-header-cell *matHeaderCellDef>  </th>
                     <td mat-cell *matCellDef="let item"> {{item.nome}} </td>
                 </ng-container>
 
@@ -67,10 +64,9 @@
 
             </table>
             
-            <h2>{{ pedido.id }}</h2>
-
-        </div>
-       
+            @if(!pedido.confirmado) { 
+                <button matButton (click)="confirmarPagamento(pedido.id)">Confirmar Pagamento</button>
+            }
+        </div> 
     }
-
 </form>
