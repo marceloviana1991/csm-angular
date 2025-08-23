@@ -47,8 +47,12 @@ export class MaterialService {
     return this.http.put<void>(`${this.endpointUrl}/${id}`, materialEdicao)
   }
 
-  public getMateriaisByGrupo(grupoId: number): Observable<Material[]> {
-    return this.http.get<Material[]>(`${this.endpointUrl}/grupos/${grupoId}`)
+  public getMateriaisByGrupoCompra(grupoId: number): Observable<Material[]> {
+    return this.http.get<Material[]>(`${this.endpointUrl}/grupos/compra/${grupoId}`)
+  }
+
+  public getMateriaisByGrupoVenda(grupoId: number): Observable<Material[]> {
+    return this.http.get<Material[]>(`${this.endpointUrl}/grupos/venda/${grupoId}`)
   }
 
   public getImagemByMaterial(id: number): Observable<Blob> {

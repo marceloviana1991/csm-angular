@@ -62,7 +62,7 @@ export class VendaDeMaterial {
 
   onGrupoSelecionado(event: MatSelectChange) {
     const grupoId = event.value;
-    this.materialService.getMateriaisByGrupo(grupoId).subscribe( materiais => {
+    this.materialService.getMateriaisByGrupoVenda(grupoId).subscribe( materiais => {
       this.materiais = materiais;
       this.limparRecursosDaImagem();
     })

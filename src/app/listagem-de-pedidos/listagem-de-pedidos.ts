@@ -39,7 +39,6 @@ export class ListagemDePedidos {
     if (this.mes && this.ano) {
       this.pedidoService.getPedidosPorMes(this.mes, this.ano).subscribe(pedidos => {
         this.pedidos = pedidos
-        console.log(pedidos)
       })
     }
   }
@@ -50,7 +49,16 @@ export class ListagemDePedidos {
       this.ano = null;
       this.mes = null;
     })
-
   }
+
+  getTotalValue(items: any[]): number {
+    return items.map(item => item.valorTotal).reduce((acc, value) => acc + value, 0);
+  }
+
+  getTotalQuantidade(items: any[]): number {
+    return items.map(item => item.quantidade).reduce((acc, value) => acc + value, 0);
+  }
+
+
 }
 

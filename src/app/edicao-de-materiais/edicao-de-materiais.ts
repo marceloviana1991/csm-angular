@@ -50,7 +50,7 @@ export class EdicaoDeMateriais implements OnInit {
 
   onGrupoSelecionado(event: MatSelectChange) {
     const grupoId = event.value;
-    this.materialService.getMateriaisByGrupo(grupoId).subscribe( materiais => {
+    this.materialService.getMateriaisByGrupoCompra(grupoId).subscribe( materiais => {
       this.materiais = materiais;
       this.limparRecursosDaImagem();
     })
