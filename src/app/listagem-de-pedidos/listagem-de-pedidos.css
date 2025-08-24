@@ -5,6 +5,12 @@ form {
     align-items: center;
 }
 
+#titulo {
+    margin-bottom: 3.5rem;
+    width: 100%;
+}
+
+
 h1 {
     margin-bottom: 3.5rem;
 }
@@ -23,11 +29,15 @@ button {
 }
 
 div {
+    margin-bottom: 3.5rem;
     width: 95%;
 }
 
 @media (min-width: 768px) {
     mat-form-field  {
+        width: 35%;
+    }
+    #titulo {
         width: 35%;
     }
 

@@ -1,7 +1,10 @@
 
 <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
 
-    <h1>Cadastro de Material</h1>
+    <div id="titulo">
+        <h2>Cadastrar material</h2>
+        <hr>
+    </div>
 
     <img [src]="imageUrl" class="imagem-responsiva" (click)="fileInput.click()">
 

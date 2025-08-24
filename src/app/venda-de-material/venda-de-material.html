@@ -1,6 +1,10 @@
 <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
 
-    <h1>Venda de Materiais</h1>
+    <div id="titulo">
+        <h2>Faça seu pedido</h2>
+        <hr>
+    </div>
+    
 
     <mat-form-field>
         <mat-label>Categoria</mat-label>
@@ -26,26 +30,25 @@
 
     @if (imagemDoMaterialSelecionado) {
         <mat-card>
-            <mat-card-header>
-                <h2>{{ materialSelecionado?.nome }}</h2>
-            </mat-card-header>
-                <img mat-card-image [src]="imagemDoMaterialSelecionado">
+            <img mat-card-image [src]="imagemDoMaterialSelecionado">
             <mat-card-content>
-                <h3>{{ materialSelecionado?.preco | currency:'BRL' }}</h3>
-                <p>Disponível em estoque: {{ materialSelecionado?.quantidadeEmEstoque }}</p>
+                <p><b>Material: </b>{{materialSelecionado?.nome}}</p>
+                <hr>
+                <p><b>Valor unitário: </b>{{materialSelecionado?.preco | currency:'BRL'}}</p>
+                <hr>
+                <p><b>Disponível em estoque: </b>{{ materialSelecionado?.quantidadeEmEstoque }}</p>
             </mat-card-content>
-            <mat-card-actions>
-                <mat-form-field>
-                <mat-label>Quantidade</mat-label>
-                <input matInput
-                    type="number" 
-                    name="quantidade"
-                    [(ngModel)]="quantidade"
-                    placeholder="0" inputmode="numeric">
-                </mat-form-field>
-                <button matButton>Adicionar</button>
-            </mat-card-actions>
         </mat-card>  
+        <mat-form-field>
+            <mat-label>Quantidade</mat-label>
+            <input matInput
+                type="number" 
+                name="quantidade"
+                [(ngModel)]="quantidade"
+                placeholder="0" inputmode="numeric"
+                min="1">
+        </mat-form-field>
+        <button matButton>Adicionar</button>
     }
 
     
@@ -78,9 +81,11 @@
             <tr mat-row *matRowDef="let row; columns: colunasDaTabelaDeItens;"></tr>
         </table>
     </div>
-    <button matButton="filled">Finalizar pedido</button>       
+    <button matButton="filled">Finalizar pedido</button>    
+       
 } 
 </form>
+<a #tabelaDeItens></a> 
 
 
 

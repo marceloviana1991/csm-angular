@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -15,6 +15,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CaixaDeDialogo } from '../caixa-de-dialogo/caixa-de-dialogo';
+import { LoginService } from '../service/login-service';
 
 @Component({
   selector: 'app-venda-de-material',
@@ -36,6 +37,8 @@ export class VendaDeMaterial {
 
   @ViewChild('form') form!: NgForm;
 
+  @ViewChild('tabelaDeItens') tabelaDeItens!: ElementRef;
+
   grupos: Grupo[] = []
   materiais: Material[] = []
   itensDoPedido: ItemDoPedido[] = []
@@ -54,13 +57,17 @@ export class VendaDeMaterial {
     private sanitizer: DomSanitizer,
     private snakbar: MatSnackBar,
     private pedidoService: PedidoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
     this.grupoService.getGrupos().subscribe( grupos => {
       this.grupos = grupos;
     })
+
+    console.log(this.loginService.estaAutenticado())
+
   }
 
   onGrupoSelecionado(event: MatSelectChange) {
@@ -124,6 +131,10 @@ export class VendaDeMaterial {
 
     this.itensDoPedido = [...this.itensDoPedido];
     this.openSnackBar('Item adicionado ao pedido!');
+
+    setTimeout(() => {
+      this.tabelaDeItens.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 100);
 }
 
   removerItem(itemParaRemover: ItemDoPedido) {

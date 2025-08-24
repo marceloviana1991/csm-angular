@@ -1,6 +1,9 @@
 <form  #form="ngForm" (ngSubmit)="onSubmit()" novalidate>
 
-    <h1>Confimação de Pedidos</h1>
+    <div id="titulo">
+        <h2>Faça a confirmação do pedido</h2>
+        <hr>
+    </div>
 
     <mat-form-field>
         <mat-label>Mês</mat-label>
@@ -38,8 +41,8 @@
 <form #form="ngForm">
     @for (pedido of pedidos; track pedido.id) {
         <div>
-
-            <h2>{{ pedido.tipo }} - {{ pedido.data | date:'dd/MM/yyyy' }}</h2>
+            
+            <h3>{{ pedido.tipo }} - {{ pedido.data | date:'dd/MM/yyyy' }}</h3>
 
             <table mat-table [dataSource]="pedido.itens">
 
@@ -71,6 +74,8 @@
                 <button matButton (click)="confirmarPagamento(pedido.id)">Confirmar Pagamento</button>
                 <button matButton (click)="cancelarPedido(pedido.id)">Cancelar</button>
             }
+            <hr> 
+            
         </div> 
     }
 </form>

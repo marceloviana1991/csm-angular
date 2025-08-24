@@ -5,8 +5,9 @@ form {
     align-items: center;
 }
 
-h1 {
+#titulo {
     margin-bottom: 3.5rem;
+    width: 100%;
 }
 
 img {
@@ -28,6 +29,9 @@ button {
 @media (min-width: 768px) {
     img {
         width: 20%;
+    }
+    #titulo {
+        width: 35%;
     }
     mat-form-field  {
         width: 35%;

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -35,6 +35,8 @@ import { CaixaDeDialogo } from '../caixa-de-dialogo/caixa-de-dialogo';
 export class CompraDeMaterial {
 
   @ViewChild('form') form!: NgForm;
+
+  @ViewChild('tabelaDeItens') tabelaDeItens!: ElementRef;
 
   grupos: Grupo[] = []
   materiais: Material[] = []
@@ -120,6 +122,10 @@ export class CompraDeMaterial {
 
     this.itensDoPedido = [...this.itensDoPedido];
     this.openSnackBar('Item adicionado ao pedido!');
+    
+    setTimeout(() => {
+      this.tabelaDeItens.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 100);
 }
 
   removerItem(itemParaRemover: ItemDoPedido) {
