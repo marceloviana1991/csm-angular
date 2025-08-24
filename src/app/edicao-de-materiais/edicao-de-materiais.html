@@ -27,7 +27,7 @@
     @if (imagemDoMaterialSelecionado) {
 
         <img [src]="imagemDoMaterialSelecionado">
-        <button id="button-alterar-imagem" matButton (click)="fileInput.click()">Alterar imagem</button>
+        <a id="button-alterar-imagem" matButton (click)="fileInput.click()">Alterar imagem</a>
         <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept="image/*">
 
         <mat-form-field>

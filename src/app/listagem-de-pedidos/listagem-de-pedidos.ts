@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
+import { CaixaDeDialogo } from '../caixa-de-dialogo/caixa-de-dialogo';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-listagem-de-pedidos',
@@ -34,13 +36,14 @@ export class ListagemDePedidos implements OnInit {
   displayedColumns: string[] = ['nome', 'quantidade', 'valorTotal'];
 
   constructor(
-    private pedidoService: PedidoService
+    private pedidoService: PedidoService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.mes = this.today.getMonth() + 1;
     this.ano = this.today.getFullYear();
-    this.onSubmit()
+    this.onSubmit();
 
   }
 
@@ -53,16 +56,18 @@ export class ListagemDePedidos implements OnInit {
   }
 
   confirmarPagamento(id: number) {
-    this.pedidoService.getPedidoConfirmarPagamento(id).subscribe(() => {
-      this.pedidos = [];
-      this.ano = null;
-      this.mes = null;
+    this.abrirCaixaDeDialogo('Deseja confirmar o pagamento do pedido?', () => {
+      this.pedidoService.getPedidoConfirmarPagamento(id).subscribe(() => {
+        this.ngOnInit();
+      })
     })
   }
 
   cancelarPedido(id: number) {
-    this.pedidoService.getPedidoCancelar(id).subscribe(() => {
-    this.pedidos = this.pedidos.filter(pedido => pedido.id !== id);
+    this.abrirCaixaDeDialogo('Deseja cancelar o pedido?', () => {
+        this.pedidoService.getPedidoCancelar(id).subscribe(() => {
+        this.pedidos = this.pedidos.filter(pedido => pedido.id !== id);
+      })
     })
   }
 
@@ -74,6 +79,16 @@ export class ListagemDePedidos implements OnInit {
     return items.map(item => item.quantidade).reduce((acc, value) => acc + value, 0);
   }
 
+  abrirCaixaDeDialogo(mensagem: string, operacaoDeConfirmacao: () => void): void {
+    let dialogRef = this.dialog.open(CaixaDeDialogo, {
+      data: mensagem
+    });
 
+    dialogRef.afterClosed().subscribe( result => {
+      if (result) {
+        operacaoDeConfirmacao()
+      }
+    })
+  }
 }
 

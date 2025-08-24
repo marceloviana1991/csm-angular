@@ -8,6 +8,8 @@ import { Material, MaterialEdicao, MaterialService } from '../service/material-s
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { CaixaDeDialogo } from '../caixa-de-dialogo/caixa-de-dialogo';
 
 @Component({
   selector: 'app-edicao-de-materiais',
@@ -40,6 +42,7 @@ export class EdicaoDeMateriais implements OnInit {
     private materialService: MaterialService,
     private sanitizer: DomSanitizer,
     private snakbar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -79,22 +82,23 @@ export class EdicaoDeMateriais implements OnInit {
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
+    this.abrirCaixaDeDialogo('Deseja confirmar alteração de imagem?', () => {
+      if (input.files && input.files.length > 0) {
       this.arquivoSelecionado = input.files[0];
       if (this.materialSelecionado) {
-        console.log(this.materialSelecionado)
-        this.materialService.putImagemByMaterial(this.materialSelecionado.id, this.arquivoSelecionado).subscribe({
-          next: () => {
-            this.form.resetForm();
-            this.materiais = [];
-            this.materialSelecionado = null;
-            this.arquivoSelecionado = null;
-            this.limparRecursosDaImagem();
-            this.openSnackBar();
-          }
-        })
+          this.materialService.putImagemByMaterial(this.materialSelecionado.id, this.arquivoSelecionado).subscribe({
+            next: () => {
+              this.materialService.getImagemByMaterial(this.materialSelecionado!.id).subscribe( imageBlob => {
+                this.limparRecursosDaImagem();
+                const objectURL = URL.createObjectURL(imageBlob);
+                this.imagemDoMaterialSelecionado = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+              })
+              this.openSnackBar();
+            }
+          })
+        }
       }
-    }
+    })
   }
 
   onSubmit(ngForm: NgForm) {
@@ -104,18 +108,20 @@ export class EdicaoDeMateriais implements OnInit {
       quantidadeEmEstoque: this.quantidadeEmEstoque!
     }
     const id = this.materialSelecionado?.id
-    if (id) {
+    this.abrirCaixaDeDialogo('Deseja confirmar alteração de dados?', () => {
+      if (id) {
       this.materialService.putMaterial(id, materialEdicao).subscribe({
-        next: () => {
-            this.form.resetForm();
-            this.materiais = [];
-            this.materialSelecionado = null;
-            this.arquivoSelecionado = null;
-            this.limparRecursosDaImagem();
-            this.openSnackBar();
-          }
-      })
-    }
+          next: () => {
+              this.form.resetForm();
+              this.materiais = [];
+              this.materialSelecionado = null;
+              this.arquivoSelecionado = null;
+              this.limparRecursosDaImagem();
+              this.openSnackBar();
+            }
+        })
+      }
+    })
   }
 
   openSnackBar() {
@@ -124,6 +130,17 @@ export class EdicaoDeMateriais implements OnInit {
     });
   }
 
-  
+
+  abrirCaixaDeDialogo(mensagem: string, operacaoDeConfirmacao: () => void): void {
+    let dialogRef = this.dialog.open(CaixaDeDialogo, {
+      data: mensagem
+    });
+
+    dialogRef.afterClosed().subscribe( result => {
+      if (result) {
+        operacaoDeConfirmacao()
+      }
+    })
+  }
 
 }

@@ -13,6 +13,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ItemDoPedido, PedidoService } from '../service/pedido-service';
+import { MatDialog } from '@angular/material/dialog';
+import { CaixaDeDialogo } from '../caixa-de-dialogo/caixa-de-dialogo';
 
 @Component({
   selector: 'app-compra-de-material',
@@ -51,7 +53,8 @@ export class CompraDeMaterial {
     private materialService: MaterialService,
     private sanitizer: DomSanitizer,
     private snakbar: MatSnackBar,
-    private pedidoService: PedidoService
+    private pedidoService: PedidoService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -125,16 +128,18 @@ export class CompraDeMaterial {
   }
 
   finalizarPedido() {
-    this.pedidoService.postPedidoDeCompra(this.itensDoPedido).subscribe({
-      next: () => {
-        this.itensDoPedido = []
-        this.form.resetForm();
-        this.quantidade = 1;
-        this.materiais = [];
-        this.materialSelecionado = null;
-        this.limparRecursosDaImagem();
-        this.openSnackBar('Pedido finalizado com sucesso!');
-      }
+    this.abrirCaixaDeDialogo('Deseja confirmar envio de pedido?', () => {
+      this.pedidoService.postPedidoDeCompra(this.itensDoPedido).subscribe({
+        next: () => {
+          this.itensDoPedido = []
+          this.form.resetForm();
+          this.quantidade = 1;
+          this.materiais = [];
+          this.materialSelecionado = null;
+          this.limparRecursosDaImagem();
+          this.openSnackBar('Pedido finalizado com sucesso!');
+        }
+      })
     })
   }
 
@@ -142,5 +147,17 @@ export class CompraDeMaterial {
     this.snakbar.open(mensagem, 'Fechar', {
       duration: 3000
     });
+  }
+
+  abrirCaixaDeDialogo(mensagem: string, operacaoDeConfirmacao: () => void): void {
+    let dialogRef = this.dialog.open(CaixaDeDialogo, {
+      data: mensagem
+    });
+
+    dialogRef.afterClosed().subscribe( result => {
+      if (result) {
+        operacaoDeConfirmacao()
+      }
+    })
   }
 }

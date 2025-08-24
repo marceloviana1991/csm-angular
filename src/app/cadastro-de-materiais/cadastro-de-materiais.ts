@@ -8,6 +8,8 @@ import { Grupo, GrupoService } from '../service/grupo-service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MaterialCadastro, MaterialService } from '../service/material-service';
+import { MatDialog } from '@angular/material/dialog';
+import { CaixaDeDialogo } from '../caixa-de-dialogo/caixa-de-dialogo';
 
 @Component({
   selector: 'app-cadastro-de-materiais',
@@ -17,7 +19,7 @@ import { MaterialCadastro, MaterialService } from '../service/material-service';
     MatFormFieldModule, 
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   templateUrl: './cadastro-de-materiais.html',
   styleUrl: './cadastro-de-materiais.css'
@@ -35,7 +37,8 @@ export class CadastroDeMateriais implements OnInit {
   constructor(
     private grupoService: GrupoService,
     private snakbar: MatSnackBar,
-    private materialService: MaterialService 
+    private materialService: MaterialService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -66,11 +69,13 @@ export class CadastroDeMateriais implements OnInit {
     };
     this.materialService.postMaterial(dadosMaterial, this.selectedFile).subscribe({
     next: () => {
-      console.log('Material e imagem enviados com sucesso!');
-      this.openSnackBar();
-      meuForm.resetForm();
-      this.imageUrl = 'placeholder.png';
-      this.selectedFile = null;
+      this.abrirCaixaDeDialogo('Deseja confirmar cadastro de material?', () => {
+        console.log('Material e imagem enviados com sucesso!');
+        this.openSnackBar();
+        meuForm.resetForm();
+        this.imageUrl = 'placeholder.png';
+        this.selectedFile = null;
+      })
     },
   });
     
@@ -80,6 +85,18 @@ export class CadastroDeMateriais implements OnInit {
     this.snakbar.open('Material cadastrado com sucesso!', 'Fechar', {
       duration: 3000
     });
+  }
+
+  abrirCaixaDeDialogo(mensagem: string, operacaoDeConfirmacao: () => void): void {
+    let dialogRef = this.dialog.open(CaixaDeDialogo, {
+      data: mensagem
+    });
+
+    dialogRef.afterClosed().subscribe( result => {
+      if (result) {
+        operacaoDeConfirmacao()
+      }
+    })
   }
 
 }

@@ -13,9 +13,13 @@ mat-form-field {
     width: 100%;
 }
 
-button {
+#btn-listar {
    width: 95%; 
    margin-top: 3.5rem;
+}
+
+button {
+   width: 50%;  
 }
 
 div {
@@ -27,8 +31,12 @@ div {
         width: 35%;
     }
 
-    button {
+    #btn-listar {
         width: 32%; 
+    }
+
+    button {
+        width: 35%;
     }
 
     div {

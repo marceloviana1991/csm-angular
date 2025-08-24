@@ -23,18 +23,18 @@
     Compra
   </a>
   <a mat-tab-link 
-    routerLink="/vender"
+    routerLink="/listar"
     routerLinkActive
     #rla4="routerLinkActive"
     [active]="rla4.isActive">
-    Venda
+    Pedidos
   </a>
   <a mat-tab-link 
-    routerLink="/listar"
+    routerLink="/vender"
     routerLinkActive
     #rla5="routerLinkActive"
     [active]="rla5.isActive">
-    Pedidos
+    Venda
   </a>
   <a mat-tab-link 
     routerLink="/login"
@@ -59,12 +59,12 @@
     <a mat-menu-item routerLink="/comprar">
       <span>Compra</span>
     </a>
-    <a mat-menu-item routerLink="/vender">
-      <span>Venda</span>
-    </a>
     <a mat-menu-item routerLink="/listar">
       <span>Pedidos</span>
     </a>
+    <a mat-menu-item routerLink="/vender">
+      <span>Venda</span>
+    </a> 
     <a mat-menu-item routerLink="/login">
       <span>Login</span>
     </a>
