@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CaixaDeDialogo } from '../caixa-de-dialogo/caixa-de-dialogo';
 import { LoginService } from '../service/login-service';
+import { WhatsappService } from '../service/whatsapp';
 
 @Component({
   selector: 'app-venda-de-material',
@@ -58,7 +59,8 @@ export class VendaDeMaterial {
     private snakbar: MatSnackBar,
     private pedidoService: PedidoService,
     private dialog: MatDialog,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private whatsappService: WhatsappService
   ) {}
 
   ngOnInit(): void {
@@ -146,13 +148,52 @@ export class VendaDeMaterial {
     this.abrirCaixaDeDialogo('Deseja confirmar envio de pedido?', () => {
       this.pedidoService.postPedidoDeVenda(this.itensDoPedido).subscribe({
         next: () => {
-          this.itensDoPedido = []
-          this.form.resetForm();
-          this.quantidade = 1;
-          this.materiais = [];
-          this.materialSelecionado = null;
-          this.limparRecursosDaImagem();
-          this.openSnackBar('Pedido finalizado com sucesso!');
+          const telefone = sessionStorage.getItem('telefone');
+
+        let total = 0;
+        
+        // 1. Formata a lista de itens
+        const itensMensagem = this.itensDoPedido.map(item => {
+          total += item.valorTotal;
+          // Formata o valor para o padrão BRL (R$ 12,34)
+          const valorFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.valorTotal);
+          return `• ${item.material.nome} - ${valorFormatado}`;
+        }).join('\n'); // Usa 'join' para unir todos os itens com uma quebra de linha
+
+        // 2. Formata o valor total
+        const totalFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total);
+
+        // 3. Monta a mensagem final com formatação e estrutura
+        const mensagemWhatsapp = `
+*Olá! 👋 Seu pedido foi recebido!*
+
+Aqui está o resumo para sua conferência:
+
+${itensMensagem}
+
+-----------------------------------
+*Total a pagar: ${totalFormatado}*
+
+Para concluir, por favor, realize o pagamento via Pix.
+
+*Chave Pix (Celular):*
+${telefone}
+
+Agradecemos a sua preferência! 😊
+        `;
+
+        // --- FIM DA CONSTRUÇÃO DA MENSAGEM ---
+
+        this.whatsappService.enviarMensagem(telefone!, mensagemWhatsapp);
+
+        // Limpeza do formulário e estado do componente
+        this.itensDoPedido = [];
+        this.form.resetForm();
+        this.quantidade = 1;
+        this.materiais = [];
+        this.materialSelecionado = null;
+        this.limparRecursosDaImagem();
+        this.openSnackBar('Pedido finalizado com sucesso!');
         }
       })
     })
