@@ -1,22 +1,22 @@
 <form  #form="ngForm" (ngSubmit)="onSubmit()" novalidate>
 
-    <h1>Listar Pedidos</h1>
+    <h1>Confimação de Pedidos</h1>
 
     <mat-form-field>
         <mat-label>Mês</mat-label>
         <mat-select [(ngModel)]="mes" name="mes" required>
-            <mat-option value="1">Janeiro</mat-option>
-            <mat-option value="2">Fevereiro</mat-option>
-            <mat-option value="3">Março</mat-option>
-            <mat-option value="4">Abril</mat-option>
-            <mat-option value="5">Maio</mat-option>
-            <mat-option value="6">Junho</mat-option>
-            <mat-option value="7">Julho</mat-option>
-            <mat-option value="8">Agosto</mat-option>
-            <mat-option value="9">Setembro</mat-option>
-            <mat-option value="10">Outubro</mat-option>
-            <mat-option value="11">Novembro</mat-option>
-            <mat-option value="12">Dezembro</mat-option>
+            <mat-option [value]="1">Janeiro</mat-option>
+            <mat-option [value]="2">Fevereiro</mat-option>
+            <mat-option [value]="3">Março</mat-option>
+            <mat-option [value]="4">Abril</mat-option>
+            <mat-option [value]="5">Maio</mat-option>
+            <mat-option [value]="6">Junho</mat-option>
+            <mat-option [value]="7">Julho</mat-option>
+            <mat-option [value]="8">Agosto</mat-option>
+            <mat-option [value]="9">Setembro</mat-option>
+            <mat-option [value]="10">Outubro</mat-option>
+            <mat-option [value]="11">Novembro</mat-option>
+            <mat-option [value]="12">Dezembro</mat-option>
         </mat-select>
     </mat-form-field>
 
@@ -24,8 +24,7 @@
         <mat-label>Ano</mat-label>
         <input matInput
             type="number" 
-            name="ano"
-            placeholder="YYYY" 
+            name="ano" 
             [(ngModel)]="ano"
             inputmode="numeric"
             required>  
@@ -40,7 +39,7 @@
     @for (pedido of pedidos; track pedido.id) {
         <div>
 
-            <h2>N°{{ pedido.id }} - {{ pedido.tipo }}</h2>
+            <h2>{{ pedido.tipo }} - {{ pedido.data | date:'dd/MM/yyyy' }}</h2>
 
             <table mat-table [dataSource]="pedido.itens">
 
@@ -70,6 +69,7 @@
             
             @if(!pedido.confirmado) { 
                 <button matButton (click)="confirmarPagamento(pedido.id)">Confirmar Pagamento</button>
+                <button matButton (click)="cancelarPedido(pedido.id)">Cancelar</button>
             }
         </div> 
     }

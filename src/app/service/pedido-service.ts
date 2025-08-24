@@ -86,4 +86,8 @@ export class PedidoService {
   public getPedidoConfirmarPagamento(id: number): Observable<void> {
     return this.http.get<void>(`${this.endpointUrl}/confirmar/${id}`)
   }
+
+  public getPedidoCancelar(id: number): Observable<void> {
+    return this.http.get<void>(`${this.endpointUrl}/cancelar/${id}`)
+  }
 }

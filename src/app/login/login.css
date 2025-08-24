@@ -9,13 +9,6 @@ h1 {
     margin-bottom: 3.5rem;
 }
 
-img {
-    margin-top: 3.5rem;
-    width: 80%;
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-}
-
 mat-form-field {
     width: 100%;
 }
@@ -25,16 +18,7 @@ button {
    margin-top: 3.5rem;
 }
 
-#button-alterar-imagem {
-    margin-top: 0;
-    margin-bottom: 3.5rem;
-    width: auto;
-}
-
 @media (min-width: 768px) {
-    img {
-        width: 20%;
-    }
     mat-form-field  {
         width: 35%;
     }

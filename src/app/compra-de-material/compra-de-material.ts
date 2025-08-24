@@ -116,21 +116,12 @@ export class CompraDeMaterial {
     }
 
     this.itensDoPedido = [...this.itensDoPedido];
-
-    this.form.resetForm();
-    this.quantidade = 1;
-    this.materiais = [];
-    this.materialSelecionado = null;
-    this.limparRecursosDaImagem();
+    this.openSnackBar('Item adicionado ao pedido!');
 }
 
   removerItem(itemParaRemover: ItemDoPedido) {
     this.itensDoPedido = this.itensDoPedido.filter(item => item !== itemParaRemover);
-    this.form.resetForm();
-    this.quantidade = 1;
-    this.materiais = [];
-    this.materialSelecionado = null;
-    this.limparRecursosDaImagem();
+    this.openSnackBar('Item revido do pedido!');
   }
 
   finalizarPedido() {

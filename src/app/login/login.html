@@ -1,0 +1,28 @@
+<form #form="ngForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <h1>Login do Administrador</h1>
+
+    <mat-form-field>
+        <mat-label>Login</mat-label>
+        <input matInput
+            type="text" 
+            name="nome"
+            [(ngModel)]="login"
+            required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Senha</mat-label>
+        <input matInput
+            type="password" 
+            name="senha"
+            [(ngModel)]="senha"
+            required>
+    </mat-form-field>
+
+    <button matButton="filled" type="submit" [disabled]="!form.valid">
+        Efetuar login
+    </button>
+
+</form>
+

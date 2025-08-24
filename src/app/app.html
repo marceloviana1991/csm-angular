@@ -36,6 +36,13 @@
     [active]="rla5.isActive">
     Pedidos
   </a>
+  <a mat-tab-link 
+    routerLink="/login"
+    routerLinkActive
+    #rla6="routerLinkActive"
+    [active]="rla6.isActive">
+    Login
+  </a>
 </nav>
 
 <div class="mobile-only">
@@ -57,6 +64,9 @@
     </a>
     <a mat-menu-item routerLink="/listar">
       <span>Pedidos</span>
+    </a>
+    <a mat-menu-item routerLink="/login">
+      <span>Login</span>
     </a>
   </mat-menu>
 </div>
