@@ -37,12 +37,13 @@ mat-card mat-form-field {
     width: 100%;
 }
 
-mat-card {
+#card-material {
     width: 60%;
     display: flex;
     flex-direction: column;
     margin-top: 3.5rem;
     margin-bottom: 3.5rem;
+    background-color: #fff;
 }
 
 mat-card-content {
@@ -51,12 +52,20 @@ mat-card-content {
 
 #tabela {
     margin-bottom: 3.5rem;
+    padding: 0.5rem;
+    background-color: #fff;
 }
 
+table {
+    background-color: #fff;
+}
+
+
 @media (min-width: 768px) {
-    mat-card {
+    #card-material {
         width: 20%;
     }
+
     mat-form-field  {
         width: 35%;
     }
@@ -67,8 +76,7 @@ mat-card-content {
         width: 32%; 
     }
     #tabela {
-        width: 35%;
-        margin-top: 3rem;
+        width: 50%;
         margin-bottom: 3rem;
     }
 }

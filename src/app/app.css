@@ -1,9 +1,14 @@
 div {
     display: flex;
-    margin: 0.8rem;
+    padding: 0.8rem;
     flex-direction: row;
     justify-content:end;
-  }
+    background-color: #005cbb;
+}
+
+mat-icon {
+  color: #fff;
+}
 
 
 

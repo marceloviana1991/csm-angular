@@ -29,7 +29,7 @@
     </mat-form-field>
 
     @if (imagemDoMaterialSelecionado) {
-        <mat-card>
+        <mat-card id="card-material">
             <img mat-card-image [src]="imagemDoMaterialSelecionado">
             <mat-card-content>
                 <p><b>Material: </b>{{materialSelecionado?.nome}}</p>
@@ -38,28 +38,23 @@
                 <hr>
                 <p><b>Disponível em estoque: </b>{{ materialSelecionado?.quantidadeEmEstoque }}</p>
             </mat-card-content>
-        </mat-card>
+        </mat-card>  
         <mat-form-field>
-                <mat-label>Quantidade</mat-label>
-                <input matInput
-                    type="number" 
-                    name="quantidade"
-                    [(ngModel)]="quantidade"
-                    placeholder="0" inputmode="numeric"
-                    min="1">
-            </mat-form-field>
-            <button matButton>Adicionar</button>
-        <div id="adicionar">
-            
-        </div>  
-        
+            <mat-label>Quantidade</mat-label>
+            <input matInput
+                type="number" 
+                name="quantidade"
+                [(ngModel)]="quantidade"
+                placeholder="0" inputmode="numeric"
+                min="1">
+        </mat-form-field>
+        <button matButton >Adicionar</button>
     }
-
 </form>
 
 <form (ngSubmit)="finalizarPedido()">
 @if (itensDoPedido.length > 0) {
-    <div id="tabela" >
+    <mat-card id="tabela">
         <table mat-table [dataSource]="itensDoPedido">
             <ng-container matColumnDef="Nome">
                 <th mat-header-cell *matHeaderCellDef>Nome</th>
@@ -80,8 +75,8 @@
             <tr mat-header-row *matHeaderRowDef="colunasDaTabelaDeItens"></tr>
             <tr mat-row *matRowDef="let row; columns: colunasDaTabelaDeItens;"></tr>
         </table>
-    </div>
-    <button matButton="filled" >Finalizar pedido</button> 
+    </mat-card>
+    <button matButton="filled">Finalizar pedido</button>    
        
 } 
 </form>
