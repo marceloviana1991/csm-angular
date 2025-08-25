@@ -1,24 +1,10 @@
-.mobile-only {
-  display: none;
-}
-
-.desktop-only {
-  display: block;
-}
-
-
-@media (max-width: 768px) {
-  .desktop-only {
-    display: none;
-  }
-
-  .mobile-only {
+div {
     display: flex;
     margin: 0.8rem;
     flex-direction: row;
     justify-content:end;
   }
-}
+
 
 
 

@@ -1,7 +1,7 @@
 <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
 
     <div id="titulo">
-        <h2>Registre a reposição do material</h2>
+        <h2>Registro de reposição de material</h2>
         <hr>
     </div>
     
@@ -38,17 +38,21 @@
                 <hr>
                 <p><b>Disponível em estoque: </b>{{ materialSelecionado?.quantidadeEmEstoque }}</p>
             </mat-card-content>
-        </mat-card>  
+        </mat-card>
         <mat-form-field>
-            <mat-label>Quantidade</mat-label>
-            <input matInput
-                type="number" 
-                name="quantidade"
-                [(ngModel)]="quantidade"
-                placeholder="0" inputmode="numeric"
-                min="1">
-        </mat-form-field>
-        <button matButton>Adicionar</button>
+                <mat-label>Quantidade</mat-label>
+                <input matInput
+                    type="number" 
+                    name="quantidade"
+                    [(ngModel)]="quantidade"
+                    placeholder="0" inputmode="numeric"
+                    min="1">
+            </mat-form-field>
+            <button matButton>Adicionar</button>
+        <div id="adicionar">
+            
+        </div>  
+        
     }
 
 </form>

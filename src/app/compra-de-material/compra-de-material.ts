@@ -121,7 +121,6 @@ export class CompraDeMaterial {
     }
 
     this.itensDoPedido = [...this.itensDoPedido];
-    this.openSnackBar('Item adicionado ao pedido!');
     
     setTimeout(() => {
       this.tabelaDeItens.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -130,7 +129,6 @@ export class CompraDeMaterial {
 
   removerItem(itemParaRemover: ItemDoPedido) {
     this.itensDoPedido = this.itensDoPedido.filter(item => item !== itemParaRemover);
-    this.openSnackBar('Item revido do pedido!');
   }
 
   finalizarPedido() {

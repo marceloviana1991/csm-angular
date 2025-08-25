@@ -7,6 +7,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { LoginService } from './service/login-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ export class App implements OnInit {
   constructor(
     public loginService: LoginService,
     private router: Router,
+    private snakbar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -40,5 +42,12 @@ export class App implements OnInit {
   logout() {
     this.loginService.logout()
     this.router.navigate(['/vender']);
+    this.openSnackBar('Logout realizado com sucesso!');
+  }
+
+  openSnackBar(mensagem: string) {
+    this.snakbar.open(mensagem, 'Fechar', {
+      duration: 3000
+    });
   }
 }

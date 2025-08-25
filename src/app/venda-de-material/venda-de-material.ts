@@ -132,7 +132,6 @@ export class VendaDeMaterial {
     }
 
     this.itensDoPedido = [...this.itensDoPedido];
-    this.openSnackBar('Item adicionado ao pedido!');
 
     setTimeout(() => {
       this.tabelaDeItens.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -141,7 +140,6 @@ export class VendaDeMaterial {
 
   removerItem(itemParaRemover: ItemDoPedido) {
     this.itensDoPedido = this.itensDoPedido.filter(item => item !== itemParaRemover);
-    this.openSnackBar('Item revido do pedido!');
   }
 
   finalizarPedido() {
@@ -165,21 +163,19 @@ export class VendaDeMaterial {
 
         // 3. Monta a mensagem final com formatação e estrutura
         const mensagemWhatsapp = `
-*Olá! 👋 Seu pedido foi recebido!*
+        *Olá! 👋 Seu pedido foi recebido!*
 
-Aqui está o resumo para sua conferência:
+        Aqui está o resumo para sua conferência:
 
-${itensMensagem}
+        ${itensMensagem}
 
------------------------------------
-*Total a pagar: ${totalFormatado}*
+        -----------------------------------
+        *Total a pagar: ${totalFormatado}*
 
-Para concluir, por favor, realize o pagamento via Pix.
+        Para concluir, por favor, realize o pagamento via Pix.
 
-*Chave Pix (Celular):*
-${telefone}
-
-Agradecemos a sua preferência! 😊
+        *Chave Pix (Celular):*
+        ${telefone}
         `;
 
         // --- FIM DA CONSTRUÇÃO DA MENSAGEM ---
