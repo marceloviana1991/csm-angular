@@ -155,7 +155,7 @@ export class VendaDeMaterial {
           total += item.valorTotal;
           // Formata o valor para o padrão BRL (R$ 12,34)
           const valorFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.valorTotal);
-          return `• ${item.material.nome} - ${valorFormatado}`;
+          return `• ${item.quantidade} - ${item.material.nome} - ${valorFormatado}`;
         }).join('\n'); // Usa 'join' para unir todos os itens com uma quebra de linha
 
         // 2. Formata o valor total
