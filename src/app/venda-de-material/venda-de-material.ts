@@ -163,20 +163,20 @@ export class VendaDeMaterial {
 
         // 3. Monta a mensagem final com formatação e estrutura
         const mensagemWhatsapp = `
-        *Olá! 👋 Seu pedido foi recebido!*
+*Olá! 👋 Seu pedido foi recebido!*
 
-        Aqui está o resumo para sua conferência:
+Aqui está o resumo para sua conferência:
 
-        ${itensMensagem}
+${itensMensagem}
 
-        -----------------------------------
-        *Total a pagar: ${totalFormatado}*
+-----------------------------------
+*Total a pagar: ${totalFormatado}*
 
-        Para concluir, por favor, realize o pagamento via Pix.
+Para concluir, por favor, realize o pagamento via Pix.
 
-        *Chave Pix (Celular):*
-        ${telefone}
-        `;
+*Chave Pix (Celular):*
+${telefone}
+`;
 
         // --- FIM DA CONSTRUÇÃO DA MENSAGEM ---
 

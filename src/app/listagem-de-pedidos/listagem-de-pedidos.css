@@ -28,9 +28,28 @@ button {
    width: 50%;  
 }
 
-div {
-    margin-bottom: 3.5rem;
+mat-card {
+    margin-bottom: 1.5rem;
     width: 95%;
+    padding: 1rem;
+    background-color: #fff;
+}
+
+table {
+   background-color: #fff; 
+}
+
+#container-btn-confirma {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.btn-confirma {
+    width: auto;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 @media (min-width: 768px) {
@@ -49,7 +68,12 @@ div {
         width: 35%;
     }
 
-    div {
-    width: 35%;
-}
+    mat-card {
+        width: 35%;
+    }
+
+    .btn-confirma {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
 }

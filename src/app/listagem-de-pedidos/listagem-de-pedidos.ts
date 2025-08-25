@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { CaixaDeDialogo } from '../caixa-de-dialogo/caixa-de-dialogo';
 import { MatDialog } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-listagem-de-pedidos',
@@ -19,7 +20,8 @@ import { MatDialog } from '@angular/material/dialog';
     MatSelectModule,
     MatButtonModule,
     MatTableModule,
-    CommonModule
+    CommonModule,
+    MatCardModule
   ],
   templateUrl: './listagem-de-pedidos.html',
   styleUrl: './listagem-de-pedidos.css'
