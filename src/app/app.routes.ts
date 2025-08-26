@@ -14,5 +14,5 @@ export const routes: Routes = [
     {path:'comprar', component:CompraDeMaterial, canActivate: [authGuard]},
     {path:'vender', component:VendaDeMaterial},
     {path:'listar', component:ListagemDePedidos, canActivate: [authGuard]},
-    {path:'login', component:Login}
+    {path:'logar', component:Login}
 ];
