@@ -70,7 +70,7 @@
             
             @if(!pedido.confirmado) { 
                 <div id="container-btn-confirma">
-                    <button class="btn-confirma" matButton="outlined" (click)="confirmarPagamento(pedido.id)">Confirmar</button>
+                    <button class="btn-confirma" matButton="filled" (click)="confirmarPagamento(pedido.id)">Confirmar</button>
                     <button class="btn-confirma" matButton="outlined" (click)="cancelarPedido(pedido.id)">Cancelar</button>
                 </div>
             }

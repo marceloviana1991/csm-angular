@@ -38,16 +38,18 @@ mat-card mat-form-field {
 }
 
 #card-material {
-    width: 60%;
+    width: 65%;
     display: flex;
     flex-direction: column;
     margin-top: 3.5rem;
-    margin-bottom: 3.5rem;
     background-color: #fff;
+    align-items: center;
+    padding: 1rem;
 }
 
 mat-card-content {
-    padding: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 #tabela {

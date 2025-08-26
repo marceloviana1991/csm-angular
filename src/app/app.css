@@ -3,7 +3,7 @@ div {
     padding: 0.8rem;
     flex-direction: row;
     justify-content:end;
-    background-color: #005cbb;
+    background-color: var(--mat-sys-primary);
 }
 
 mat-icon {
