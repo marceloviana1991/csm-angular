@@ -102,10 +102,12 @@ export class CompraDeMaterial {
     
     if (itemDoPedidoExistente) {
       itemDoPedidoExistente.quantidade += this.quantidade;
+      itemDoPedidoExistente.valorTotal += itemDoPedidoExistente.quantidade*itemDoPedidoExistente.material.preco;
 
       if (this.materialSelecionado.quantidadeEmEstoque < itemDoPedidoExistente.quantidade) {
         this.openSnackBar('Quantidade indiponível!');
         itemDoPedidoExistente.quantidade -= this.quantidade;
+        itemDoPedidoExistente.valorTotal -= itemDoPedidoExistente.quantidade*itemDoPedidoExistente.material.preco;
         return;
       }
       
