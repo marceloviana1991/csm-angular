@@ -43,6 +43,8 @@ export class VendaDeMaterial {
   grupos: Grupo[] = []
   materiais: Material[] = []
   itensDoPedido: ItemDoPedido[] = []
+  cliente: string | null = null
+  telefone: string | null = null
 
   materialSelecionado: Material | null = null;
   imagemDoMaterialSelecionado: SafeUrl | null = null;
@@ -142,11 +144,15 @@ export class VendaDeMaterial {
 
   removerItem(itemParaRemover: ItemDoPedido) {
     this.itensDoPedido = this.itensDoPedido.filter(item => item !== itemParaRemover);
+    if (this.itensDoPedido.length === 0) {
+      this.cliente = null;
+      this.telefone = null;
+    }
   }
 
   finalizarPedido() {
     this.abrirCaixaDeDialogo('Deseja confirmar envio de pedido?', () => {
-      this.pedidoService.postPedidoDeVenda(this.itensDoPedido).subscribe({
+      this.pedidoService.postPedidoDeVenda(this.itensDoPedido, this.cliente!, this.telefone!).subscribe({
         next: () => {
           const telefone = sessionStorage.getItem('telefone');
 

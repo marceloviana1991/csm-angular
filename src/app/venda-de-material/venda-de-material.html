@@ -52,7 +52,7 @@
     }
 </form>
 
-<form (ngSubmit)="finalizarPedido()">
+<form #pedidoForm="ngForm" (ngSubmit)="finalizarPedido()" novalidate>
 @if (itensDoPedido.length > 0) {
     <mat-card id="tabela">
         <table mat-table [dataSource]="itensDoPedido">
@@ -76,8 +76,23 @@
             <tr mat-row *matRowDef="let row; columns: colunasDaTabelaDeItens;"></tr>
         </table>
     </mat-card>
-    <button matButton="filled">Finalizar pedido</button>    
-       
+    <mat-form-field>
+        <mat-label>Cliente</mat-label>
+        <input matInput
+            type="text" 
+            name="cliente"
+            [(ngModel)]="cliente"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Telefone</mat-label>
+        <input matInput
+            type="text" 
+            name="telefone"
+            [(ngModel)]="telefone"
+            required>
+    </mat-form-field>
+    <button matButton="filled" [disabled]="!pedidoForm.valid">Finalizar pedido</button>    
 } 
 </form>
 <a #tabelaDeItens></a> 

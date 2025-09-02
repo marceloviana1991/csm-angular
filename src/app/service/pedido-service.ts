@@ -13,6 +13,11 @@ export interface ItemDoPedido {
 export interface Pedido {
   itens: ItemDoPedidoRequest[]
 }
+export interface PedidoVenda {
+  cliente: string,
+  telefone: string,
+  itens: ItemDoPedidoRequest[]
+}
 
 export interface ItemDoPedidoRequest {
   materialId: number;
@@ -30,6 +35,8 @@ export interface ItemDoPedidoResponse {
 export interface PedidoResponse {
   id: number;
   data: string;
+  cliente: string,
+  telefone: string,
   tipo: string;
   confirmado: boolean;
   itens: ItemDoPedidoResponse[];
@@ -60,7 +67,7 @@ export class PedidoService {
     return this.http.post<void>(`${this.endpointUrl}/comprar`, pedido)
   }
 
-  public postPedidoDeVenda(itensDoPedido: ItemDoPedido[]): Observable<void> {
+  public postPedidoDeVenda(itensDoPedido: ItemDoPedido[], cliente: string, telefone: string): Observable<void> {
     const itens: ItemDoPedidoRequest[] = itensDoPedido.map(item => {
       const id = item.material.id
       return {
@@ -69,7 +76,9 @@ export class PedidoService {
         valorTotal: item.valorTotal
       }
     })
-    const pedido: Pedido = {
+    const pedido: PedidoVenda = {
+      cliente: cliente,
+      telefone: telefone,
       itens: itens
     }
     console.log(pedido)

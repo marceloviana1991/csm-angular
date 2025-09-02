@@ -53,6 +53,7 @@ export class ListagemDePedidos implements OnInit {
     if (this.mes && this.ano) {
       this.pedidoService.getPedidosPorMes(this.mes, this.ano).subscribe(pedidos => {
         this.pedidos = pedidos
+        console.log(pedidos)
       })
     }
   }
