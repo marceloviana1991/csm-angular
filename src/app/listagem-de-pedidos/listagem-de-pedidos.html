@@ -64,8 +64,14 @@
 
                 <ng-container matColumnDef="valorTotal">
                     <th mat-header-cell *matHeaderCellDef> Valor </th>
-                    <td mat-cell *matCellDef="let item"> {{item.valorTotal | currency:'BRL' }} </td>
-                    <td mat-footer-cell *matFooterCellDef> {{ getTotalValue(pedido.itens) | currency:'BRL' }} </td>
+                    @if (pedido.tipo === "VENDA") {
+                        <td mat-cell *matCellDef="let item" style="color: green;"> {{item.valorTotal | currency:'BRL' }} </td>
+                        <td mat-footer-cell *matFooterCellDef style="color: green;"> {{ getTotalValue(pedido.itens) | currency:'BRL' }} </td>
+                    } @else {
+                        <td mat-cell *matCellDef="let item" style="color: red;"> {{-item.valorTotal | currency:'BRL' }} </td>
+                        <td mat-footer-cell *matFooterCellDef style="color: red;"> {{ -getTotalValue(pedido.itens) | currency:'BRL' }} </td>
+                    }
+                    
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
